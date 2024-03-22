@@ -1,2 +1,68 @@
 Aprendiendo a usar Github
 ahora esto lo use en el braunch llamado "dev"
+
+Codigo de la actividad 2:
+class Libro:
+    def __init__(self, titulo, autor, genero, puntuacion):
+        self.titulo = titulo
+        self.autor = autor
+        self.genero = genero
+        self.puntuacion = puntuacion
+
+# Lista de libros proporcionados
+lista_libros = [
+    Libro("Cien años de soledad", "Gabriel García Márquez", "Ficción", 4.5),
+    Libro("1984", "George Orwell", "Ciencia Ficción", 4.3),
+    Libro("El Hobbit", "J.R.R. Tolkien", "Fantasía", 4.7),
+    Libro("Orgullo y Prejuicio", "Jane Austen", "Romance", 4.2),
+    Libro("Crimen y Castigo", "Fiódor Dostoyevski", "Clásico", 4.4),
+    Libro("Los Juegos del Hambre", "Suzanne Collins", "Juvenil", 4.1),
+    Libro("Don Quijote de la Mancha", "Miguel de Cervantes", "Clásico", 4.6),
+    Libro("Harry Potter y la Piedra Filosofal", "J.K. Rowling", "Fantasía", 4.8),
+    Libro("Los Pilares de la Tierra", "Ken Follett", "Histórica", 4.4),
+    Libro("Cazadores de Sombras: Ciudad de Hueso", "Cassandra Clare", "Fantasía", 4.0)
+]
+
+def agregar_libro():
+    titulo, autor, genero = input("Ingrese título, autor y género del libro separados por comas: ").split(',')
+    puntuacion = float(input("Ingrese la puntuación del libro: "))
+    lista_libros.append(Libro(titulo.strip(), autor.strip(), genero.strip(), puntuacion))
+    print("Libro agregado exitosamente.")
+
+def buscar_libros_por_genero():
+    genero_buscar = input("Ingrese el género que desea buscar: ")
+    libros_encontrados = [libro.titulo for libro in lista_libros if libro.genero.lower() == genero_buscar.lower()]
+    if libros_encontrados:
+        print(f"Libros en el género '{genero_buscar}': {', '.join(libros_encontrados)}")
+    else:
+        print("No se encontraron libros en el género especificado.")
+
+def recomendar_libro():
+    genero_interes = input("Ingrese su género de interés: ")
+    libros_genero_interes = [libro for libro in lista_libros if libro.genero.lower() == genero_interes.lower()]
+    if libros_genero_interes:
+        mejor_libro = max(libros_genero_interes, key=lambda x: x.puntuacion)
+        print(f"¡Te recomendamos '{mejor_libro.titulo}' con una puntuación de {mejor_libro.puntuacion}!")
+    else:
+        print("Lo sentimos, no se encontraron libros en el género especificado.")
+
+# Menú principal
+while True:
+    print("\n--- Menú ---")
+    print("1. Agregar Libro")
+    print("2. Buscar Libros por Género")
+    print("3. Recomendar Libro")
+    print("4. Salir")
+    opcion = input("Ingrese el número de la opción que desea realizar: ")
+
+    if opcion == "1":
+        agregar_libro()
+    elif opcion == "2":
+        buscar_libros_por_genero()
+    elif opcion == "3":
+        recomendar_libro()
+    elif opcion == "4":
+        print("¡Hasta luego!")
+        break
+    else:
+        print("Opción no válida. Por favor, ingrese un número válido.")
